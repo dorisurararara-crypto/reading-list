@@ -16,7 +16,7 @@ Pocket 종료 발표(2025년 7월 종료)에 대비한 가벼운 PWA. 가입 없
 - URL 붙여넣기 → 추가 → 자동으로 제목/요약 가져옴 (r.jina.ai 무료 프록시)
 
 ## 후원
-무료로 운영합니다. 도움이 됐다면 ☕ [후원](https://buymeacoffee.com/openclaw)
+무료로 운영합니다. 도움이 됐다면 ☕ [카카오페이 후원](https://qr.kakaopay.com/FcjpwVmHb)
 
 ## 기술
 - Vanilla JS + HTML + CSS, 의존성 0
