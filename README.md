@@ -11,9 +11,17 @@ Pocket 종료 발표(2025년 7월 종료)에 대비한 가벼운 PWA. 가입 없
 - **JSON 백업/복원**
 
 ## 사용
+
+### Chrome Extension (PC, 1클릭 저장 — 추천)
+- `extension/` 폴더 → Chrome `chrome://extensions` → 개발자 모드 → "압축해제된 확장 로드"
+- 툴바 아이콘 1클릭 = 현재 탭 즉시 저장
+- 단축키 `Cmd+Shift+S` 또는 우클릭 → "Reading List에 저장"
+- 자세히: [extension/README.md](extension/README.md)
+
+### PWA (웹 버전 — 모바일·다른 브라우저)
 - 데모: https://dorisurararara-crypto.github.io/reading-list/
 - 모바일에서 사파리/크롬 → "홈 화면에 추가" → 앱처럼 사용
-- URL 붙여넣기 → 추가 → 자동으로 제목/요약 가져옴 (r.jina.ai 무료 프록시)
+- URL 붙여넣기 → 추가 (PC는 Chrome Extension 권장)
 
 ## 후원
 무료로 운영합니다. 도움이 됐다면 ☕ [카카오페이 후원](https://qr.kakaopay.com/FcjpwVmHb)

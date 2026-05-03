@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Reading List — 1클릭 저장",
+  "short_name": "Reading List",
+  "version": "0.1.1",
+  "description": "현재 탭을 1클릭으로 저장. 무료, 광고 없음, 데이터 본인 기기에만. Pocket 종료 대비 무료 대체.",
+  "default_locale": "ko",
+  "permissions": ["storage", "contextMenus", "activeTab", "tabs", "notifications"],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_title": "Reading List에 현재 탭 저장 (Cmd+Shift+S)"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "save-current-tab": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "현재 탭을 Reading List에 저장"
+    },
+    "open-library": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Reading List 라이브러리 열기"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "homepage_url": "https://github.com/dorisurararara-crypto/reading-list"
+}

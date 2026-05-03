@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reading List 라이브러리</title>
+<style>
+:root{--bg:#0f172a;--fg:#e2e8f0;--muted:#94a3b8;--card:#1e293b;--accent:#38bdf8;--border:#334155;}
+@media (prefers-color-scheme: light){:root{--bg:#f8fafc;--fg:#0f172a;--muted:#475569;--card:#fff;--border:#e2e8f0;}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,'Inter','Apple SD Gothic Neo','맑은 고딕',sans-serif;line-height:1.55;}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 16px;z-index:10;}
+.title{font-size:18px;font-weight:700}
+.title small{font-weight:400;color:var(--muted);font-size:12px}
+.toolbar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.toolbar button{background:transparent;color:var(--muted);border:1px solid var(--border);padding:6px 10px;border-radius:6px;font-size:13px;cursor:pointer}
+.toolbar button.on{background:var(--accent);color:#0c2233;border-color:var(--accent);font-weight:600}
+.toolbar input[type="search"]{flex:1;min-width:200px;background:var(--card);color:var(--fg);border:1px solid var(--border);padding:6px 10px;border-radius:6px;font-size:13px}
+main{max-width:760px;margin:0 auto;padding:14px 14px 80px}
+.empty{text-align:center;color:var(--muted);padding:60px 20px;border:1px dashed var(--border);border-radius:12px;margin-top:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.card .body{flex:1;min-width:0}
+.card .t{font-weight:600;font-size:15px;margin:0 0 4px;display:block;color:var(--fg);text-decoration:none;word-break:break-word}
+.card .t:hover{color:var(--accent)}
+.card .meta{color:var(--muted);font-size:12px;margin:0;display:flex;gap:8px;flex-wrap:wrap}
+.card .desc{color:var(--muted);font-size:13px;margin:6px 0 0;line-height:1.4}
+.card .acts{display:flex;flex-direction:column;gap:6px}
+.card .acts button{background:transparent;color:var(--muted);border:1px solid var(--border);width:34px;height:30px;border-radius:6px;cursor:pointer;font-size:14px}
+.card .acts button:hover{color:var(--fg)}
+.card .acts button.star.on{color:#fbbf24;border-color:#fbbf24}
+.card.archived{opacity:.55}
+.import{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin:0 0 14px;font-size:13px;color:var(--muted)}
+.import h3{margin:0 0 6px;color:var(--fg);font-size:14px}
+.foot{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 14px;font-size:12px;color:var(--muted);text-align:center}
+.foot a{color:var(--muted)}
+.foot .bmc{display:inline-block;background:#fbbf24;color:#0f172a;padding:4px 10px;border-radius:6px;font-weight:600;text-decoration:none;margin-left:6px}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">Reading List <small>— 1클릭 저장 · 본인 기기 저장</small></div>
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="제목/주소 검색" />
+    <button id="fAll" class="on">전체 (<span id="cAll">0</span>)</button>
+    <button id="fUnread">읽지 않음 (<span id="cUnread">0</span>)</button>
+    <button id="fStar">즐겨찾기 (<span id="cStar">0</span>)</button>
+    <button id="fArch">읽음 (<span id="cArch">0</span>)</button>
+    <button id="exportBtn">백업</button>
+    <button id="importBtn">복원</button>
+    <input id="importFile" type="file" accept="application/json" style="display:none" />
+  </div>
+</header>
+<main>
+  <div class="import">
+    <h3>💡 사용법</h3>
+    툴바의 ⊕ 아이콘 클릭 = 현재 탭 저장. 단축키 <b>Cmd+Shift+S</b> (Win: Ctrl+Shift+S). 우클릭 → "이 페이지를/이 링크를 Reading List에 저장"도 가능.<br/>
+    PWA(<a href="https://dorisurararara-crypto.github.io/reading-list/" target="_blank">웹 버전</a>)에서 백업한 JSON 파일을 위 "복원" 버튼으로 불러올 수 있습니다.
+  </div>
+  <div id="empty" class="empty">
+    <h2>저장된 글 0개</h2>
+    <p>툴바의 Reading List 아이콘을 클릭해 첫 글을 저장하세요.</p>
+  </div>
+  <div id="list"></div>
+</main>
+<footer class="foot">
+  Reading List · 무료 · 광고 없음 · 데이터 본인 기기에만 ·
+  <a href="https://github.com/dorisurararara-crypto/reading-list" target="_blank">GitHub</a> ·
+  <a class="bmc" href="https://qr.kakaopay.com/FcjpwVmHb" target="_blank">☕ 카카오페이 후원</a>
+</footer>
+<script src="options.js"></script>
+</body>
+</html>
