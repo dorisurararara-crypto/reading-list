@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0f172a" />
+<title>Reading List — 무료 Pocket 대체</title>
+<meta name="description" content="Pocket 종료에 대비한 무료 읽을거리 저장소. 광고 없음, 가입 없음, 오프라인 동작. 모든 데이터는 브라우저에만 저장됩니다." />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<style>
+:root{
+  --bg:#0f172a; --fg:#e2e8f0; --muted:#94a3b8; --card:#1e293b;
+  --accent:#38bdf8; --danger:#ef4444; --border:#334155; --good:#22c55e;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f8fafc;--fg:#0f172a;--muted:#475569;--card:#fff;--border:#e2e8f0;}
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,'Inter','SF Pro KR','Apple SD Gothic Neo','맑은 고딕',sans-serif;line-height:1.55;}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 16px;z-index:10;backdrop-filter:saturate(140%) blur(8px);}
+.title{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.title .dot{width:8px;height:8px;background:var(--accent);border-radius:50%}
+.add{display:flex;gap:8px;margin-top:10px}
+.add input{flex:1;background:var(--card);color:var(--fg);border:1px solid var(--border);padding:10px 12px;border-radius:8px;font-size:15px;}
+.add button{background:var(--accent);color:#0c2233;border:0;padding:0 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;}
+.toolbar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.toolbar button{background:transparent;color:var(--muted);border:1px solid var(--border);padding:6px 10px;border-radius:6px;font-size:13px;cursor:pointer}
+.toolbar button.on{background:var(--accent);color:#0c2233;border-color:var(--accent);font-weight:600}
+main{max-width:760px;margin:0 auto;padding:14px 14px 80px}
+.empty{text-align:center;color:var(--muted);padding:60px 20px;border:1px dashed var(--border);border-radius:12px;margin-top:20px}
+.empty h2{margin:0 0 8px;font-size:16px;color:var(--fg)}
+.empty p{margin:0 0 6px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.card .body{flex:1;min-width:0}
+.card .t{font-weight:600;font-size:15px;line-height:1.35;margin:0 0 4px;display:block;color:var(--fg);text-decoration:none;word-break:break-word}
+.card .t:hover{color:var(--accent)}
+.card .meta{color:var(--muted);font-size:12px;margin:0;display:flex;gap:8px;flex-wrap:wrap}
+.card .desc{color:var(--muted);font-size:13px;margin:6px 0 0;line-height:1.4}
+.card .acts{display:flex;flex-direction:column;gap:6px}
+.card .acts button{background:transparent;color:var(--muted);border:1px solid var(--border);width:34px;height:30px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1}
+.card .acts button:hover{color:var(--fg)}
+.card .acts button.star.on{color:#fbbf24;border-color:#fbbf24}
+.card.archived{opacity:.55}
+.foot{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 14px;font-size:12px;color:var(--muted);text-align:center}
+.foot a{color:var(--muted)}
+.foot .bmc{display:inline-block;background:#fbbf24;color:#0f172a;padding:4px 10px;border-radius:6px;font-weight:600;text-decoration:none;margin-left:6px}
+@media (max-width:480px){
+  .card .t{font-size:14px}
+  .add input{font-size:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="title"><span class="dot"></span>Reading List <span style="color:var(--muted);font-weight:400;font-size:12px">— 무료 Pocket 대체</span></div>
+  <div class="add">
+    <input id="url" type="url" inputmode="url" placeholder="https:// 주소 붙여넣기 (또는 공유)" autocomplete="off" />
+    <button id="addBtn">추가</button>
+  </div>
+  <div class="toolbar">
+    <button id="fAll" class="on">전체 (<span id="cAll">0</span>)</button>
+    <button id="fUnread">읽지 않음 (<span id="cUnread">0</span>)</button>
+    <button id="fStar">즐겨찾기 (<span id="cStar">0</span>)</button>
+    <button id="fArch">읽음 (<span id="cArch">0</span>)</button>
+    <button id="exportBtn" title="JSON 백업 내보내기">⬇ 백업</button>
+    <button id="importBtn" title="JSON 백업 불러오기">⬆ 복원</button>
+    <input id="importFile" type="file" accept="application/json" style="display:none" />
+  </div>
+</header>
+<main>
+  <div id="empty" class="empty">
+    <h2>읽을거리 0개</h2>
+    <p>위에 URL을 붙여넣고 <b>추가</b>를 누르세요.</p>
+    <p style="margin-top:14px;font-size:13px">📱 모바일: 브라우저 메뉴 → "홈 화면에 추가" 로 앱처럼 설치 가능.<br/>🔒 모든 데이터는 이 기기에만 저장됩니다 (서버 X, 추적 X).</p>
+  </div>
+  <div id="list"></div>
+</main>
+<footer class="foot">
+  Reading List · 100% 무료 · 광고 없음 · 데이터 로컬 저장 ·
+  <a href="https://github.com/dorisurararara-crypto/reading-list" target="_blank" rel="noopener">GitHub</a> ·
+  <a class="bmc" href="https://buymeacoffee.com/openclaw" target="_blank" rel="noopener">☕ 후원</a>
+</footer>
+<script src="app.js"></script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
+</body>
+</html>
